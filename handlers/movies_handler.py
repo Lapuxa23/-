@@ -1,11 +1,10 @@
 from aiogram import Router, types
-from aiogram.filters import Text
+from aiogram.filters import Command
 
 # Создание роутера
 movies_router = Router()
 
-# Обработчик inline-кнопки "Список фильмов"
-@movies_router.callback_query(Text('movies'))
-async def process_callback_movies(callback_query: types.CallbackQuery):
-    await callback_query.answer()
-    await callback_query.message.answer("Список фильмов: ...")
+# Обработчик команды /movies
+@movies_router.message(Command("movies"))
+async def process_command_movies(message: types.Message):
+    await message.answer("Список фильмов: ...")

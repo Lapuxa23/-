@@ -1,12 +1,12 @@
-from aiogram import Router, types
-from aiogram.filters import Text
+from aiogram import Router, types, F
+from aiogram.filters import Command
 import aiohttp
 
 # Создание роутера
 joke_router = Router()
 
 # Обработчик inline-кнопки "Шутка"
-@joke_router.callback_query(Text('joke'))
+@joke_router.callback_query(F.data == "joke")  # Используем фильтр данных
 async def process_callback_joke(callback_query: types.CallbackQuery):
     await callback_query.answer()
     async with aiohttp.ClientSession() as session:

@@ -1,11 +1,11 @@
 from aiogram import Router, types
-from aiogram.filters import Text
+from aiogram.filters import Command
 
 # Создание роутера
 poll_router = Router()
 
-# Обработчик inline-кнопки "Опрос"
-@poll_router.callback_query(Text('poll'))
-async def process_callback_poll(callback_query: types.CallbackQuery):
-    await callback_query.answer()
-    await callback_query.message.answer("Опрос: Как вас зовут?")
+
+# Обработчик команды /poll
+@poll_router.message(Command("poll"))
+async def process_command_poll(message: types.Message):
+    await message.answer("Опрос: Как вас зовут?")
